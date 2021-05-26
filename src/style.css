@@ -1,0 +1,15 @@
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+ul {
+  list-style: none;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
