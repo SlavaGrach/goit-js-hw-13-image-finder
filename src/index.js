@@ -23,12 +23,10 @@ formSearchRef.addEventListener('submit', event => {
 function renderPictures(data) {
     
     picturesGalery.insertAdjacentHTML('beforeend', picturesTpl(data));
-    window.scrollTo(
-        {
-            top: scrollHeight,
-            left: 0,
-            behavior: 'smooth',
-        });
+    picturesGalery.scrollIntoView({
+    behavior: 'smooth',
+    block: 'end',
+});
 }
 
 buttonRef.addEventListener('click', () => {
@@ -48,4 +46,3 @@ picturesGalery.addEventListener('click', (event) => {
 
 })
 
-// console.log(fetchPicture('cat'));
