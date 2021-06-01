@@ -11,6 +11,7 @@ const inputRef = document.querySelector('input');
 
 
 let pageNumber = 1;
+buttonRef.style.visibility = 'hidden';
 
 formSearchRef.addEventListener('submit', event => {
     
@@ -18,31 +19,47 @@ formSearchRef.addEventListener('submit', event => {
     pageNumber = 1;
     picturesGalery.innerHTML = '';
     apiService(pageNumber, inputRef.value).then(renderPictures);
+    buttonRef.style.visibility = 'visible';
+     
 });
 
 function renderPictures(data) {
-    
+       
     picturesGalery.insertAdjacentHTML('beforeend', picturesTpl(data));
-    picturesGalery.scrollIntoView({
-    behavior: 'smooth',
-    block: 'end',
-});
+    scroll();  
+    
+}
+
+function scroll() {
+
+    setTimeout(() => {
+        buttonRef.scrollIntoView({
+            behavior: "smooth",
+            block: "end",
+        });
+    }, 500);
+
+}
+
+function loadMoreImages() {
+    pageNumber += 1;
+    apiService(pageNumber, inputRef.value).then(renderPictures);
+       
 }
 
 buttonRef.addEventListener('click', () => {
-    pageNumber += 1;
-    apiService(pageNumber, inputRef.value).then(renderPictures);
-    
+    loadMoreImages();
+     
 })
 
 picturesGalery.addEventListener('click', (event) => {
     if (event.target.nodeName !== 'IMG') {
         return;
     }
-
     basicLightbox.create(`
     <img src=${event.target.dataset.source} width="800" height="600">
-`).show()
-
+    `).show()
 })
+
+
 
